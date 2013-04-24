@@ -1,4 +1,2 @@
-1: set pins 2-11 as OUTPUT so they can send 5v.
-
-2: fix the code so when the nunchuck is not plugged (throws value of 13)
-   dont send any voltage on any pin.
+fix the code to make it work with an H-Bridge 
+so the arduino can power the motors.
