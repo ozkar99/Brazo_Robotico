@@ -16,8 +16,16 @@ DCMotor M3(8,9);
 DCMotor M4(10,11);
 
 void control_motor(DCMotor X, DCMotor Y,   DCMotor N1, DCMotor N2, DCMotor N3, DCMotor N4) {  
-  //motor para X, motor para Y, motores que no se usan...
+
+  //para los cambios que no se quede "pegado" el control.
   N1.stop(); N2.stop(); N3.stop(); N4.stop();
+  
+  //atrapa el nuchchuck desconectado:
+  //manda aprox 13 a todo, cuando el maximo es de 10.
+  if (N.Joy.X > 10) {
+      N1.stop(); N2.stop(); N3.stop(); N4.stop();    
+  }     
+  
   //motor en X y motor en Y
   if ( N.Joy.X <= -DEADZONE ) { 
       X.inverse(); 
@@ -61,6 +69,11 @@ void setup () {
     Serial.begin(19200);
     nunchuck_setpowerpins();
     nunchuck_init(); // send the initilization handshake       
+    
+    /* para que manden 5v */
+    for(int i=2; i<=11;i++){
+     pinMode(i, OUTPUT); 
+    }
 }
 
 void loop () {
